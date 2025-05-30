@@ -133,6 +133,9 @@ def deposit(account_id, amount, should_crash=False):
     
     old_balance = float(acc['balance'])
     new_balance = old_balance + amount
+
+    if should_crash:
+        new_balance = old_balance
     
     # Start transaction
     success, transaction_id, message = start_transaction('deposit', amount, account_id)
