@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Recovery Logs</h2>
+    
+    <div class="mb-6 bg-blue-50 p-6 rounded-lg border border-blue-200">
+        <h3 class="text-xl font-semibold text-blue-800 mb-3">About Recovery Mechanism</h3>
+        <p class="text-gray-600 mb-4">
+            The recovery mechanism ensures that the database remains in a consistent state even after system crashes.
+            It follows the ACID principles to guarantee that transactions are either fully completed or fully rolled back.
+        </p>
+        <p class="text-gray-600">
+            The logs below show all recovery attempts made by the system, including both automated and manual recoveries.
+        </p>
+    </div>
+    
+    {% if logs %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-700">
+                        <th class="py-2 px-4 text-left">Recovery ID</th>
+                        <th class="py-2 px-4 text-left">Transaction</th>
+                        <th class="py-2 px-4 text-left">Recovery Type</th>
+                        <th class="py-2 px-4 text-left">Status</th>
+                        <th class="py-2 px-4 text-left">Description</th>
+                        <th class="py-2 px-4 text-left">Date/Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-50">
+                        <td class="py-3 px-4 font-medium">{{ log.recovery_id }}</td>
+                        <td class="py-3 px-4">
+                            <div>ID: {{ log.transaction_id }}</div>
+                            <div class="text-sm text-gray-500">
+                                {% if log.transaction_type == 'deposit' %}
+                                    Deposit of ${{ '%.2f'|format(log.amount|float) }}
+                                {% elif log.transaction_type == 'withdrawal' %}
+                                    Withdrawal of ${{ '%.2f'|format(log.amount|float) }}
+                                {% elif log.transaction_type == 'transfer' %}
+                                    Transfer of ${{ '%.2f'|format(log.amount|float) }}
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="py-3 px-4">
+                            {% if log.recovery_type == 'automatic' %}
+                                <span class="bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs">Automatic</span>
+                            {% else %}
+                                <span class="bg-blue-100 text-blue-800 py-1 px-2 rounded-full text-xs">Manual</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-4">
+                            {% if log.status == 'success' %}
+                                <span class="status-badge bg-green-100 text-green-800 py-1 px-2 rounded-full text-xs">Success</span>
+                            {% else %}
+                                <span class="status-badge bg-red-100 text-red-800 py-1 px-2 rounded-full text-xs">Failed</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-3 px-4 text-sm">{{ log.description }}</td>
+                        <td class="py-3 px-4 text-gray-500 text-sm">{{ log.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="mt-6 text-center">
+            <a href="{{ url_for('transactions') }}" class="text-blue-600 hover:underline">
+                View all transactions
+            </a>
+        </div>
+    {% else %}
+        <div class="text-center py-8">
+            <p class="text-gray-600 mb-4">No recovery logs found.</p>
+            <a href="{{ url_for('simulate_crash') }}" class="btn inline-block bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
+                Simulate a Crash
+            </a>
+        </div>
+    {% endif %}
+    
+    <div class="mt-8 bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+        <h3 class="text-xl font-semibold text-yellow-800 mb-3">Recovery Process Explained</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-2">Deposit Recovery</h4>
+                <ul class="list-disc pl-6 text-gray-600 text-sm">
+                    <li>If crashed before account update: Simply roll back the transaction</li>
+                    <li>If crashed after account update: Commit the transaction as the deposit was successful</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-2">Withdrawal Recovery</h4>
+                <ul class="list-disc pl-6 text-gray-600 text-sm">
+                    <li>If crashed before account update: Roll back the transaction</li>
+                    <li>If crashed after account update: Commit the transaction as the withdrawal was successful</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-2">Transfer Recovery (Critical)</h4>
+                <ul class="list-disc pl-6 text-gray-600 text-sm">
+                    <li>If crashed before any updates: Roll back the transaction</li>
+                    <li>If crashed after source update but before destination: This is the most critical case - restore the source account balance</li>
+                    <li>If crashed after both accounts updated: Commit the transaction as the transfer was successful</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-2">Recovery Methods</h4>
+                <ul class="list-disc pl-6 text-gray-600 text-sm">
+                    <li><span class="font-semibold">Automatic:</span> System automatically recovers on restart</li>
+                    <li><span class="font-semibold">Manual:</span> Administrator manually initiates recovery process</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

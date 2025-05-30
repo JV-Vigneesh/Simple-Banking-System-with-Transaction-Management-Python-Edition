@@ -1,0 +1,1 @@
+# Import database module to make it available when importing the database package

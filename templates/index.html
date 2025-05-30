@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Welcome to the Banking System</h2>
+    
+    <div class="mb-8">
+        <p class="text-gray-600 mb-4">This system demonstrates transaction management and recovery techniques in a banking application.</p>
+        <p class="text-gray-600 mb-4">The system follows ACID principles to ensure that transactions are:</p>
+        <ul class="list-disc pl-8 mb-4 text-gray-600">
+            <li><span class="font-bold">Atomic</span> - A transaction is either fully completed or not done at all</li>
+            <li><span class="font-bold">Consistent</span> - The database remains in a consistent state before and after the transaction</li>
+            <li><span class="font-bold">Isolated</span> - Transactions operate independently of each other</li>
+            <li><span class="font-bold">Durable</span> - Once a transaction is committed, it remains so</li>
+        </ul>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 transition-all hover:shadow-md">
+            <h3 class="text-xl font-semibold text-blue-800 mb-3">Banking Operations</h3>
+            <p class="text-gray-600 mb-4">Perform basic banking operations:</p>
+            <ul class="space-y-2">
+                <li>
+                    <a href="{{ url_for('accounts') }}" class="btn inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+                        Manage Accounts
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('deposit') }}" class="btn inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">
+                        Deposit Funds
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('withdraw') }}" class="btn inline-block bg-yellow-600 text-white py-2 px-4 rounded hover:bg-yellow-700">
+                        Withdraw Funds
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('transfer') }}" class="btn inline-block bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700">
+                        Transfer Funds
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="bg-red-50 p-6 rounded-lg border border-red-200 transition-all hover:shadow-md">
+            <h3 class="text-xl font-semibold text-red-800 mb-3">System Recovery</h3>
+            <p class="text-gray-600 mb-4">Test transaction recovery mechanisms:</p>
+            <ul class="space-y-2">
+                <li>
+                    <a href="{{ url_for('simulate_crash') }}" class="btn inline-block bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
+                        Simulate System Crash
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('transactions') }}" class="btn inline-block bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">
+                        View Transaction History
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('recovery_page') }}" class="btn inline-block bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">
+                        Recovery Logs
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+        <h3 class="text-xl font-semibold text-yellow-800 mb-3">Getting Started</h3>
+        <p class="text-gray-600 mb-4">To get started with the system:</p>
+        <ol class="list-decimal pl-8 mb-4 text-gray-600">
+            <li>First, initialize the database by clicking the "Initialize Database" link at the bottom of the page</li>
+            <li>Create one or more bank accounts</li>
+            <li>Perform banking operations like deposits, withdrawals, and transfers</li>
+            <li>View the transaction history to see all operations</li>
+            <li>Simulate system crashes during transactions to test recovery mechanisms</li>
+        </ol>
+    </div>
+</div>
+{% endblock %}

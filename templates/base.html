@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking System with Transaction Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .flash-message {
+            animation: fadeOut 5s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .transaction-card {
+            transition: transform 0.3s ease;
+        }
+        .transaction-card:hover {
+            transform: translateY(-5px);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #1E40AF;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .status-badge {
+            transition: all 0.3s ease;
+        }
+        .btn {
+            transition: all 0.2s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <header class="bg-gradient-to-r from-blue-800 to-blue-600 text-white shadow-md">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-3xl font-bold">Banking System</h1>
+                <p class="text-sm">Transaction Management & Recovery</p>
+            </div>
+            <nav class="mt-4">
+                <ul class="flex space-x-6">
+                    <li><a href="{{ url_for('index') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Home</a></li>
+                    <li><a href="{{ url_for('accounts') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Accounts</a></li>
+                    <li><a href="{{ url_for('deposit') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Deposit</a></li>
+                    <li><a href="{{ url_for('withdraw') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Withdraw</a></li>
+                    <li><a href="{{ url_for('transfer') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Transfer</a></li>
+                    <li><a href="{{ url_for('transactions') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Transaction History</a></li>
+                    <li><a href="{{ url_for('simulate_crash') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Simulate Crash</a></li>
+                    <li><a href="{{ url_for('recovery_page') }}" class="nav-link py-2 px-1 text-white hover:text-blue-200">Recovery Logs</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mb-6">
+                {% for category, message in messages %}
+                <div class="flash-message p-4 mb-2 rounded-md {{ 'bg-green-100 text-green-800' if category == 'success' else 'bg-red-100 text-red-800' }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p>&copy; 2025 Banking System with Transaction Management</p>
+                <div class="mt-4 md:mt-0">
+                    <a href="{{ url_for('init_db') }}" class="text-blue-300 hover:text-blue-100">Initialize Database</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add any JavaScript functionality here
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-remove flash messages after animation
+            setTimeout(function() {
+                const flashMessages = document.querySelectorAll('.flash-message');
+                flashMessages.forEach(message => {
+                    message.style.display = 'none';
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
