@@ -6,7 +6,7 @@ import traceback
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '',
+    'password': 'admin',
     'charset': 'utf8mb4',
     'cursorclass': pymysql.cursors.DictCursor
 }

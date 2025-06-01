@@ -5,7 +5,7 @@
     <h2 class="text-3xl font-bold text-gray-800 mb-6">Welcome to the Banking System</h2>
     
     <div class="mb-8">
-        <p class="text-gray-600 mb-4">This system demonstrates transaction management and recovery techniques in a banking application.</p>
+        <!-- <p class="text-gray-600 mb-4">This system demonstrates transaction management and recovery techniques in a banking application.</p> -->
         <p class="text-gray-600 mb-4">The system follows ACID principles to ensure that transactions are:</p>
         <ul class="list-disc pl-8 mb-4 text-gray-600">
             <li><span class="font-bold">Atomic</span> - A transaction is either fully completed or not done at all</li>
@@ -47,11 +47,11 @@
             <h3 class="text-xl font-semibold text-red-800 mb-3">System Recovery</h3>
             <p class="text-gray-600 mb-4">Test transaction recovery mechanisms:</p>
             <ul class="space-y-2">
-                <li>
+                <!--<li>
                     <a href="{{ url_for('simulate_crash') }}" class="btn inline-block bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
                         Simulate System Crash
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <a href="{{ url_for('transactions') }}" class="btn inline-block bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">
                         View Transaction History
@@ -66,7 +66,7 @@
         </div>
     </div>
     
-    <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+    <!---<div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
         <h3 class="text-xl font-semibold text-yellow-800 mb-3">Getting Started</h3>
         <p class="text-gray-600 mb-4">To get started with the system:</p>
         <ol class="list-decimal pl-8 mb-4 text-gray-600">
@@ -76,6 +76,6 @@
             <li>View the transaction history to see all operations</li>
             <li>Simulate system crashes during transactions to test recovery mechanisms</li>
         </ol>
-    </div>
+    </div>--->
 </div>
 {% endblock %}

@@ -32,12 +32,24 @@
                             <span class="ml-2 text-red-600">Crash Funds (Simulates failure after deposit)</span>
                         </label>
                     </div>
+                    <div id="spinner" class="hidden text-center mb-4">
+                        <svg class="animate-spin h-6 w-6 text-blue-600 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        </svg>
+                        <p class="text-sm text-gray-600 mt-2">Processing transaction...</p>
+                    </div>
                     <button type="submit" class="btn w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">
                         Deposit Funds
                     </button>
                 </form>
             </div>
-            
+            <script>
+                document.querySelector("form").addEventListener("submit", function () {
+                    document.getElementById("spinner").classList.remove("hidden");
+                });
+            </script>
+
             <div class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
                 <h3 class="text-xl font-semibold text-blue-800 mb-3">About Deposits</h3>
                 <p class="text-gray-600 mb-4">When you make a deposit:</p>

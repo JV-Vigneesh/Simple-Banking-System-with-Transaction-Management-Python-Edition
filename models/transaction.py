@@ -133,10 +133,10 @@ def deposit(account_id, amount, should_crash=False):
     
     old_balance = float(acc['balance'])
     new_balance = old_balance + amount
-
+    
     if should_crash:
         new_balance = old_balance
-    
+
     # Start transaction
     success, transaction_id, message = start_transaction('deposit', amount, account_id)
     if not success:
@@ -144,7 +144,7 @@ def deposit(account_id, amount, should_crash=False):
     
     try:
         # Add artificial delay
-        time.sleep(10)
+        time.sleep(2)
         
         # Update account balance
         update_transaction_status(transaction_id, 'processing')
@@ -209,7 +209,7 @@ def withdraw(account_id, amount, should_crash=False):
     
     try:
         # Add artificial delay
-        time.sleep(10)
+        time.sleep(2)
         
         # Update account balance
         update_transaction_status(transaction_id, 'processing')
@@ -285,7 +285,7 @@ def transfer(from_account_id, to_account_id, amount, should_crash=False):
     
     try:
         # Add artificial delay
-        time.sleep(10)
+        time.sleep(2)
         
         # Update source account (withdraw)
         update_transaction_status(transaction_id, 'processing')
