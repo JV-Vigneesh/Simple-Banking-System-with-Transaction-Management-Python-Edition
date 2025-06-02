@@ -30,11 +30,11 @@
                                 <option value="{{ tx.transaction_id }}">
                                     ID: {{ tx.transaction_id }} - 
                                     {% if tx.transaction_type == 'deposit' %}
-                                        Deposit of ${{ '%.2f'|format(tx.amount|float) }} to {{ tx.source_account_name }}
+                                        Deposit of ₹{{ '%.2f'|format(tx.amount|float) }} to {{ tx.source_account_name }}
                                     {% elif tx.transaction_type == 'withdrawal' %}
-                                        Withdrawal of ${{ '%.2f'|format(tx.amount|float) }} from {{ tx.source_account_name }}
+                                        Withdrawal of ₹{{ '%.2f'|format(tx.amount|float) }} from {{ tx.source_account_name }}
                                     {% elif tx.transaction_type == 'transfer' %}
-                                        Transfer of ${{ '%.2f'|format(tx.amount|float) }} from {{ tx.source_account_name }} to {{ tx.dest_account_name }}
+                                        Transfer of ₹{{ '%.2f'|format(tx.amount|float) }} from {{ tx.source_account_name }} to {{ tx.dest_account_name }}
                                     {% endif %}
                                 </option>
                             {% endfor %}

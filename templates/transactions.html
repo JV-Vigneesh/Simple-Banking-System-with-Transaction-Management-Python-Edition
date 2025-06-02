@@ -33,7 +33,7 @@
                                     <span class="bg-purple-100 text-purple-800 py-1 px-2 rounded-full text-xs">Transfer</span>
                                 {% endif %}
                             </td>
-                            <td class="py-3 px-4">${{ '%.2f'|format(tx.amount|float) }}</td>
+                            <td class="py-3 px-4">₹{{ '%.2f'|format(tx.amount|float) }}</td>
                             <td class="py-3 px-4 text-sm">
                                 {% if tx.source_account_number %}
                                     {{ tx.source_account_name }} <br>

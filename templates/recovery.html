@@ -36,11 +36,11 @@
                             <div>ID: {{ log.transaction_id }}</div>
                             <div class="text-sm text-gray-500">
                                 {% if log.transaction_type == 'deposit' %}
-                                    Deposit of ${{ '%.2f'|format(log.amount|float) }}
+                                    Deposit of ₹{{ '%.2f'|format(log.amount|float) }}
                                 {% elif log.transaction_type == 'withdrawal' %}
-                                    Withdrawal of ${{ '%.2f'|format(log.amount|float) }}
+                                    Withdrawal of ₹{{ '%.2f'|format(log.amount|float) }}
                                 {% elif log.transaction_type == 'transfer' %}
-                                    Transfer of ${{ '%.2f'|format(log.amount|float) }}
+                                    Transfer of ₹{{ '%.2f'|format(log.amount|float) }}
                                 {% endif %}
                             </div>
                         </td>

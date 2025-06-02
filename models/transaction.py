@@ -41,7 +41,7 @@ def start_transaction(transaction_type, amount, source_account_id, destination_a
                 source_account_id, 
                 old_balance,
                 old_balance,  # No change yet
-                f"Started {transaction_type} transaction of ${amount}"
+                f"Started {transaction_type} transaction of ₹{amount}"
             )
             database.execute_query(log_query, log_params)
         
@@ -157,7 +157,7 @@ def deposit(account_id, amount, should_crash=False):
             account_id, 
             old_balance, 
             new_balance, 
-            f"Deposited ${amount:.2f} into account"
+            f"Deposited ₹{amount:.2f} into account"
         )
         
         if should_crash:
@@ -166,8 +166,8 @@ def deposit(account_id, amount, should_crash=False):
             return False, "Transaction crashed after balance update"
         
         # Commit the transaction
-        commit_transaction(transaction_id, f"Successfully deposited ${amount:.2f}")
-        return True, f"Successfully deposited ${amount:.2f}"
+        commit_transaction(transaction_id, f"Successfully deposited ₹{amount:.2f}")
+        return True, f"Successfully deposited ₹{amount:.2f}"
         
     except Exception as e:
         # Rollback on error
@@ -222,7 +222,7 @@ def withdraw(account_id, amount, should_crash=False):
             account_id, 
             old_balance, 
             new_balance, 
-            f"Withdrew ${amount:.2f} from account"
+            f"Withdrew ₹{amount:.2f} from account"
         )
         
         if should_crash:
@@ -231,8 +231,8 @@ def withdraw(account_id, amount, should_crash=False):
             return False, "Transaction crashed after balance update"
         
         # Commit the transaction
-        commit_transaction(transaction_id, f"Successfully withdrew ${amount:.2f}")
-        return True, f"Successfully withdrew ${amount:.2f}"
+        commit_transaction(transaction_id, f"Successfully withdrew ₹{amount:.2f}")
+        return True, f"Successfully withdrew ₹{amount:.2f}"
         
     except Exception as e:
         # Rollback on error
@@ -298,7 +298,7 @@ def transfer(from_account_id, to_account_id, amount, should_crash=False):
             from_account_id, 
             from_old_balance, 
             from_new_balance, 
-            f"Transferred ${amount:.2f} to account #{to_acc['account_number']}"
+            f"Transferred ₹{amount:.2f} to account #{to_acc['account_number']}"
         )
         
         if should_crash:
@@ -316,12 +316,12 @@ def transfer(from_account_id, to_account_id, amount, should_crash=False):
             to_account_id, 
             to_old_balance, 
             to_new_balance, 
-            f"Received ${amount:.2f} from account #{from_acc['account_number']}"
+            f"Received ₹{amount:.2f} from account #{from_acc['account_number']}"
         )
         
         # Commit the transaction
-        commit_transaction(transaction_id, f"Successfully transferred ${amount:.2f}")
-        return True, f"Successfully transferred ${amount:.2f}"
+        commit_transaction(transaction_id, f"Successfully transferred ₹{amount:.2f}")
+        return True, f"Successfully transferred ₹{amount:.2f}"
         
     except Exception as e:
         # Rollback on error
