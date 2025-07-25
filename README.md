@@ -4,10 +4,6 @@ A command-line banking system developed in **Python** using **Object-Oriented Pr
 
 ---
 
-![Screenshot](images/1.png)
-
----
-
 ⚠️⚠️Clean up Needs to be Done⚠️⚠️
 
 ### 📌 Features
@@ -46,9 +42,9 @@ python main.py
 
 ---
 
-### 📸 Demo (Optional)
+### 📸 Screenshots
 
-*Screenshots or terminal GIFs can go here to show how it works.*
+![Screenshot](images/1.png)
 
 ---
 
